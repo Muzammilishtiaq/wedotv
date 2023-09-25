@@ -72,15 +72,15 @@ const Seriespage = () => {
   return (
     <>
       <div className="overflow-hidden bg-[#343a40] w-full h-[100vh]">
-        <div className="overflow-y-scroll scroll-smooth px-40">
+        <div className="overflow-y-scroll scroll-smooth px-20 lg:px-40">
           <HeaderNavbar />
           <div className="container">
-            <div className="flex justify-between" id="genreSortSection">
+            <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 justify-between" id="genreSortSection">
               <span className="text-3xl font-bold text-white">Series</span>
-              <div className="filter-inner flex gap-10 mr-100">
+              <div className="filter-inner flex flex-col lg:flex-row  gap-5 lg:gap-10 mr-100">
                 <button
                   onClick={() => { setGenreToggle(true) }}
-                  className="bg-[#1c1c1c] min-w-[270px] text-white border border-none border-[#333] text-[24px] ml-[10px] text-left capitalize rounded-none py-3 px-[30px]"
+                  className="bg-[#1c1c1c] min-w-[270px] text-white border border-none border-[#333] text-[24px] ml-0 lg:ml-[10px] text-left capitalize rounded-none py-3 px-[30px]"
                 >
                   {genrestext}
                 </button>

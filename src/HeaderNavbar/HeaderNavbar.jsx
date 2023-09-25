@@ -1,67 +1,91 @@
-import React, { useRef, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { NavLink } from 'react-router-dom'
 
-function HeaderNavbar() {
-  const navigate = useNavigate();
-  const navRef = useRef(null);
+const navigation = [
+  { name: 'Home', href: '/', current: true },
+  { name: 'Movies', href: '/Movies', current: false },
+  { name: 'Series', href: '/Series', current: false },
+  { name: 'Sports', href: '/Sport', current: false },
+  { name: 'Live', href: '/', current: false },
+  { name: 'Privacy', href: '/Privacy', current: false },
+  { name: 'Teams', href: '/Terms', current: false },
+]
 
-  useEffect(() => {
-    // Focus the first link when the component mounts
-    if (navRef.current) {
-      const links = navRef.current.querySelectorAll('a');
-      if (links.length > 0) {
-        links[0].focus();
-      }
-    }
-  }, []);
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      const activeElement = document.activeElement;
-      if (activeElement.nextSibling) {
-        activeElement.nextSibling.focus();
-      }
-    } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
-      event.preventDefault();
-      const activeElement = document.activeElement;
-      if (activeElement.previousSibling) {
-        activeElement.previousSibling.focus();
-      }
-    }
-  };
-
-  return (
-    <>
-      <Navbar expand="lg" className="absolute top-0 z-50">
-        <Container fluid className='py-4'>
-          <Link onClick={() => navigate(0)}><img src="https://cloud.watch4.com/uploads/wedotv-12_logo.png" className='w-56 items-center cursor-pointer' alt="" /></Link>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              ref={navRef}
-              className="me-auto ms-10  my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-              navbarScroll
-              onKeyDown={handleKeyDown}
-            >
-              <Link to="/" className='text-white  font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Home</Link>
-              <Link to="/Movies" className='text-white  font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Movies</Link>
-              <Link to="/Series" className='text-white  font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Series</Link>
-              <Link to="/Sport" className='text-white font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Sports</Link>
-              <Link to="/" className='text-white font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Live</Link>
-              <Link to="/Privacy" className='text-white font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Privacy</Link>
-              <Link to="/Terms" className='text-white font-semibold text-3xl px-3 py-2' style={{ textDecoration: "none" }}>Teams</Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
-  )
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
 }
 
-export default HeaderNavbar;
+export default function HeaderNavbar() {
+  return (
+    <Disclosure as="nav" className="">
+      {({ open }) => (
+        <>
+          <div className="mx-auto  px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between gap-x-10">
+              <div className="absolute inset-y-0 left-0  flex items-center  sm:hidden ">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-white font-bold hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <img
+                    className="h-8 w-auto"
+                    src="https://cloud.watch4.com/uploads/wedotv-12_logo.png"
+                    alt="w4free"
+                  />
+                </div>
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-0 lg:space-x-4">
+                    {navigation.map((item) => (
+                      <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          item.current ? ' text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-lg lg:text-2xl font-medium '
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        {item.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <Disclosure.Panel className="lg:hidden z-50 ">
+            <div className="space-y-1 px-2 pb-3 pt-2">
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  href={item.href}
+                  className={classNames(
+                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block rounded-md px-3 py-2 text-base font-medium'
+                  )}
+                  aria-current={item.current ? 'page' : undefined}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  )
+}

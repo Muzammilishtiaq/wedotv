@@ -10,14 +10,12 @@ import PrivacyPage from './Web-screen-page/PrivacyPage';
 import TermsPages from './Web-screen-page/TermsPages';
 import EpisodesPage from './Web-screen-page/EpisodesPage';
 import MoviePlayerPage from './Web-screen-page/MoviePlayerPage';
-import {MovieProvider} from './Contexts/ContextPage';
 import BackSpaceKey from './Components/Keyboard press/BackSpaceKey';
 
 function App() {
   return (
 <div className=''>
   <BackSpaceKey/>
-<MovieProvider>
 <Routes>
   <Route path='/' element={<HomePage/>} />
   <Route path='/Movies' element={<Moviespage/>} />
@@ -29,7 +27,6 @@ function App() {
   <Route path='/episodes/:id' element={<EpisodesPage/>} />
   <Route path='/player/:id' element={<MoviePlayerPage/>} />
 </Routes>
-</MovieProvider>
 </div>
   )
 }

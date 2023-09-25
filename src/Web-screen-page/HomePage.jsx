@@ -92,7 +92,7 @@ export default class HomePage extends Component {
         backgroundRepeat: "no-repeat",
         height: "100vh",
       }}>
-        <div className='px-40'>
+        <div className='px-20 lg:px-40'>
           <HeaderNavbar />
           <HomeBanner />
           {this.state.loading && <Loading />}
@@ -103,10 +103,63 @@ export default class HomePage extends Component {
                   // console.log(dasta.label)
                   return (
                     <div className="" key={data.label}>
-                      <h1 className='text-white text-md font-semibold font-sans'>{data.label}</h1>
+                      <h1 className='text-white py-2 lg:py-0 text-md font-semibold font-sans'>{data.label}</h1>
 
                       <div>
-                        <Swiper spaceBetween={10} slidesPerView={6} className=" mb-10">
+                        <Swiper 
+                         breakpoints={{
+                          300: {
+                            width: 300,
+                            slidesPerView: 1,
+                          },
+                          400: {
+                            width: 400,
+                            slidesPerView: 1,
+                          },
+                          480: {
+                            width: 480,
+                            slidesPerView: 1,
+                          },
+                          576: {
+                            width: 576,
+                            slidesPerView: 1,
+                          },
+                          600: {
+                            width: 600,
+                            slidesPerView: 2,
+                          },
+                          640: {
+                            width: 640,
+                            slidesPerView: 3,
+                          },
+                          700: {
+                            width: 700,
+                            slidesPerView: 4,
+                          },
+                          768: {
+                            width: 768,
+                            slidesPerView: 5,
+                          },800: {
+                            width: 800,
+                            slidesPerView: 5,
+                          },850: {
+                            width: 850,
+                            slidesPerView: 6,
+                          },900: {
+                            width: 900,
+                            slidesPerView: 6,
+                          },950: {
+                            width: 950,
+                            slidesPerView: 7,
+                          },1000: {
+                            width: 1000,
+                            slidesPerView: 7,
+                          },1200: {
+                            width: 1200,
+                            slidesPerView: 7,
+                          },
+                        }}
+                        spaceBetween={10} slidesPerView={6} className=" mb-10">
                           {data.playlist.videos.map((element) => {
                             // console.log(index, selement);
                             return (

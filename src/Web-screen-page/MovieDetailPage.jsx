@@ -2,18 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
- import {useNavigation} from '../Contexts/ContextPage';
 
-const MovieDetailPage = ({params}) => {
+const MovieDetailPage = () => {
     const [videodetail, setVideoDetail] = useState([0]);
     // const [loading, setLoading] = useState(false);
     const history = useNavigate();
     const params = useParams();
-    const {setNavigatedBack} = useNavigation();
-    const handleNavigate = () => {
-        // Perform navigation logic
-        setNavigatedBack(true);
-      };
+
     
     useEffect(() => {
         console.log("use Effect")
